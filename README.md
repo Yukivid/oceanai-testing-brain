@@ -319,7 +319,7 @@ This project is created for educational/assignment purposes.
 
 ## 👤 Author
 
-[Your Name]
+Developed by Deepesh Raj A.Y
 
 ## 🙏 Acknowledgments
 
