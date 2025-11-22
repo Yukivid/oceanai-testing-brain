@@ -1,69 +1,419 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>E-Shop Checkout</title>
   <style>
-    .error-msg { color: red; font-size: 14px; }
-    #pay_now { background: green; color: white; padding: 10px; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 20px;
+      color: #333;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .header {
+      text-align: center;
+      color: white;
+      margin-bottom: 30px;
+    }
+
+    .header h2 {
+      font-size: 2.5em;
+      font-weight: 700;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+      margin-bottom: 10px;
+    }
+
+    .checkout-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      margin-bottom: 30px;
+    }
+
+    @media (max-width: 968px) {
+      .checkout-wrapper {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: white;
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 50px rgba(0,0,0,0.15);
+    }
+
+    .card-title {
+      font-size: 1.5em;
+      font-weight: 600;
+      color: #667eea;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .cart-items {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px;
+      background: #f8f9fa;
+      border-radius: 12px;
+      border-left: 4px solid #667eea;
+      transition: all 0.3s ease;
+    }
+
+    .cart-item:hover {
+      background: #e9ecef;
+      transform: translateX(5px);
+    }
+
+    .cart-item p {
+      font-size: 1.1em;
+      font-weight: 500;
+      color: #333;
+    }
+
+    .btn {
+      padding: 12px 24px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1em;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+    }
+
+    .btn-primary:active {
+      transform: translateY(0);
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #555;
+      font-size: 0.95em;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 14px;
+      border: 2px solid #e0e0e0;
+      border-radius: 10px;
+      font-size: 1em;
+      transition: all 0.3s ease;
+      background: #f8f9fa;
+    }
+
+    input[type="text"]:focus {
+      outline: none;
+      border-color: #667eea;
+      background: white;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+
+    .error-msg {
+      color: #e74c3c;
+      font-size: 0.9em;
+      margin-top: 5px;
+      font-weight: 500;
+      min-height: 20px;
+    }
+
+    .coupon-section {
+      display: flex;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .coupon-section input {
+      flex: 1;
+    }
+
+    .coupon-section button {
+      white-space: nowrap;
+    }
+
+    .order-summary {
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+      padding: 20px;
+      border-radius: 12px;
+      margin-top: 20px;
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 12px 0;
+      font-size: 1.1em;
+      border-bottom: 1px solid #dee2e6;
+    }
+
+    .summary-row:last-child {
+      border-bottom: none;
+      font-weight: 700;
+      font-size: 1.3em;
+      color: #667eea;
+      margin-top: 10px;
+      padding-top: 20px;
+      border-top: 2px solid #667eea;
+    }
+
+    .radio-group {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-top: 15px;
+    }
+
+    .radio-option {
+      display: flex;
+      align-items: center;
+      padding: 15px;
+      background: #f8f9fa;
+      border-radius: 10px;
+      border: 2px solid #e0e0e0;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .radio-option:hover {
+      background: #e9ecef;
+      border-color: #667eea;
+    }
+
+    .radio-option input[type="radio"] {
+      margin-right: 12px;
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+      accent-color: #667eea;
+    }
+
+    .radio-option label {
+      margin: 0;
+      cursor: pointer;
+      flex: 1;
+      font-weight: 500;
+    }
+
+    #pay_now {
+      width: 100%;
+      padding: 18px;
+      background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+      color: white;
+      font-size: 1.2em;
+      margin-top: 30px;
+      box-shadow: 0 6px 25px rgba(17, 153, 142, 0.4);
+    }
+
+    #pay_now:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 30px rgba(17, 153, 142, 0.6);
+    }
+
+    #payment_success {
+      margin-top: 20px;
+      padding: 15px;
+      border-radius: 10px;
+      font-weight: 600;
+      text-align: center;
+      font-size: 1.1em;
+    }
+
+    .success {
+      background: #d4edda;
+      color: #155724;
+      border: 2px solid #c3e6cb;
+    }
+
+    hr {
+      border: none;
+      height: 2px;
+      background: linear-gradient(to right, transparent, #667eea, transparent);
+      margin: 25px 0;
+    }
+
+    .full-width {
+      grid-column: 1 / -1;
+    }
+
+    .icon {
+      font-size: 1.2em;
+    }
   </style>
 </head>
 <body>
+  <div class="container">
+    <div class="header">
+      <h2>🛒 Checkout</h2>
+      <p style="font-size: 1.1em; opacity: 0.9;">Complete your purchase securely</p>
+    </div>
 
-<h2>Checkout</h2>
+    <div class="checkout-wrapper">
+      <!-- Cart Items Section -->
+      <div class="card">
+        <h3 class="card-title">
+          <span class="icon">🛍️</span>
+          Cart Items
+        </h3>
+        <div class="cart-items">
+          <div class="cart-item">
+            <p>💻 Laptop</p>
+            <button id="add_laptop" class="btn btn-primary">Add to Cart</button>
+          </div>
+          <div class="cart-item">
+            <p>🎧 Headphones</p>
+            <button id="add_headphones" class="btn btn-primary">Add to Cart</button>
+          </div>
+        </div>
+      </div>
 
-<h3>Cart Items</h3>
-<div>
-  <p>Item: Laptop</p>
-  <button id="add_laptop">Add to Cart</button>
-</div>
-<div>
-  <p>Item: Headphones</p>
-  <button id="add_headphones">Add to Cart</button>
-</div>
+      <!-- Order Summary Section -->
+      <div class="card">
+        <h3 class="card-title">
+          <span class="icon">📋</span>
+          Order Summary
+        </h3>
+        <div class="order-summary">
+          <div class="summary-row">
+            <span>Subtotal:</span>
+            <span>$<span id="subtotal_amount">1200</span></span>
+          </div>
+          <div class="summary-row">
+            <span>Discount:</span>
+            <span style="color: #e74c3c;">-$<span id="discount_amount">0</span></span>
+          </div>
+          <div class="summary-row">
+            <span>Total:</span>
+            <span>$<span id="order_total">1200</span></span>
+          </div>
+        </div>
+      </div>
 
-<h3>User Details</h3>
+      <!-- User Details Section -->
+      <div class="card">
+        <h3 class="card-title">
+          <span class="icon">👤</span>
+          User Details
+        </h3>
+        <div class="form-group">
+          <label for="full_name">Full Name</label>
+          <input type="text" id="full_name" placeholder="Enter your full name">
+          <div id="error_name" class="error-msg"></div>
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="text" id="email" placeholder="your.email@example.com">
+          <div id="error_email" class="error-msg"></div>
+        </div>
+        <div class="form-group">
+          <label for="address">Address</label>
+          <input type="text" id="address" placeholder="Enter your delivery address">
+          <div id="error_address" class="error-msg"></div>
+        </div>
+      </div>
 
-<label for="full_name">Full Name</label>
-<input type="text" id="full_name">
-<div id="error_name" class="error-msg"></div>
+      <!-- Coupon Section -->
+      <div class="card">
+        <h3 class="card-title">
+          <span class="icon">🎟️</span>
+          Apply Coupon
+        </h3>
+        <div class="coupon-section">
+          <input type="text" id="coupon_code" placeholder="Enter coupon code">
+          <button id="apply_coupon" class="btn btn-primary">Apply</button>
+        </div>
+        <div id="coupon_msg" class="error-msg"></div>
+      </div>
 
-<label for="email">Email</label>
-<input type="text" id="email">
-<div id="error_email" class="error-msg"></div>
+      <!-- Shipping Method Section -->
+      <div class="card">
+        <h3 class="card-title">
+          <span class="icon">🚚</span>
+          Shipping Method
+        </h3>
+        <div class="radio-group">
+          <div class="radio-option">
+            <input type="radio" id="standard" name="ship" value="standard">
+            <label for="standard">📦 Standard Shipping (5-7 business days)</label>
+          </div>
+          <div class="radio-option">
+            <input type="radio" id="express" name="ship" value="express">
+            <label for="express">⚡ Express Shipping (2-3 business days)</label>
+          </div>
+        </div>
+      </div>
 
-<label for="address">Address</label>
-<input type="text" id="address">
-<div id="error_address" class="error-msg"></div>
+      <!-- Payment Method Section -->
+      <div class="card">
+        <h3 class="card-title">
+          <span class="icon">💳</span>
+          Payment Method
+        </h3>
+        <div class="radio-group">
+          <div class="radio-option">
+            <input type="radio" id="credit" name="pay" value="credit">
+            <label for="credit">💳 Credit Card</label>
+          </div>
+          <div class="radio-option">
+            <input type="radio" id="paypal" name="pay" value="paypal">
+            <label for="paypal">🅿️ PayPal</label>
+          </div>
+        </div>
+      </div>
+    </div>
 
-<hr>
-
-<h3>Apply Coupon</h3>
-<input type="text" id="coupon_code" placeholder="Enter coupon">
-<button id="apply_coupon">Apply Coupon</button>
-<div id="coupon_msg" class="error-msg"></div>
-
-<hr>
-
-<h3>Order Summary</h3>
-<p>Subtotal: $<span id="subtotal_amount">1200</span></p>
-<p>Discount: $<span id="discount_amount">0</span></p>
-<p>Total: $<span id="order_total">1200</span></p>
-
-<hr>
-
-<h3>Shipping Method</h3>
-<input type="radio" id="standard" name="ship" value="standard"> Standard Shipping<br>
-<input type="radio" id="express" name="ship" value="express"> Express Shipping<br>
-
-<hr>
-
-<h3>Payment Method</h3>
-<input type="radio" id="credit" name="pay" value="credit"> Credit Card<br>
-<input type="radio" id="paypal" name="pay" value="paypal"> PayPal<br>
-
-<br>
-<button id="pay_now">Pay Now</button>
-<div id="payment_success"></div>
-
+    <!-- Pay Now Button -->
+    <div class="card full-width">
+      <button id="pay_now" class="btn">💳 Pay Now</button>
+      <div id="payment_success"></div>
+    </div>
+  </div>
 </body>
 </html>
