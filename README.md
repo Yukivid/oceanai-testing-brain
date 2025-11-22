@@ -268,43 +268,9 @@ The target web application HTML file containing:
    - Check file formats are supported
    - Verify ChromaDB directory permissions
 
-## Evaluation Criteria Compliance
+## 🎥 Demo Video (Contains)
 
-### ✅ Functionality
-- [x] All phases implemented (ingestion → test cases → script generation)
-- [x] Complete UI workflow
-- [x] Error handling and user feedback
-
-### ✅ Knowledge Grounding
-- [x] Test cases reference source documents
-- [x] RAG pipeline ensures grounding
-- [x] No hallucinated features
-
-### ✅ Script Quality
-- [x] Clean, correct, runnable Selenium scripts
-- [x] Selectors match actual HTML
-- [x] Proper error handling and waits
-
-### ✅ Code Quality
-- [x] Modular, readable code
-- [x] Clean FastAPI backend
-- [x] Well-structured Streamlit frontend
-
-### ✅ User Experience
-- [x] Simple, intuitive UI
-- [x] Clear system feedback
-- [x] Loading indicators
-- [x] Error messages
-
-### ✅ Documentation
-- [x] Comprehensive README
-- [x] Setup instructions
-- [x] Usage examples
-- [x] Troubleshooting guide
-
-## 🎥 Demo Video Checklist
-
-When creating your demo video, demonstrate:
+link : https://drive.google.com/file/d/15s2kdS8Mjx1MKMHRP0fKU8NhuG1ETOr5/view?usp=sharing
 
 1. ✅ Uploading documents + HTML
 2. ✅ Building the knowledge base
