@@ -1,0 +1,24 @@
+{
+  "POST /apply_coupon": {
+    "body": {
+      "code": "string"
+    },
+    "responses": {
+      "200": "Valid coupon applied",
+      "400": "Invalid coupon code"
+    }
+  },
+
+  "POST /submit_order": {
+    "body": {
+      "full_name": "string",
+      "email": "string",
+      "address": "string",
+      "payment_method": "string"
+    },
+    "responses": {
+      "200": "Order confirmed",
+      "400": "Validation failed"
+    }
+  }
+}

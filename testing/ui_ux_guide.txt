@@ -1,0 +1,8 @@
+UI/UX Rules for Checkout Page:
+
+1. All form validation errors must appear in red with class: error-msg.
+2. The "Pay Now" button must be green.
+3. All required fields (name, email, address) must show an inline error message when empty.
+4. A success message after payment must appear in element #payment_success with:
+   "Payment Successful!"
+

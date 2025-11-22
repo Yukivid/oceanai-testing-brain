@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>E-Shop Checkout</title>
+  <style>
+    .error-msg { color: red; font-size: 14px; }
+    #pay_now { background: green; color: white; padding: 10px; }
+  </style>
+</head>
+<body>
+
+<h2>Checkout</h2>
+
+<h3>Cart Items</h3>
+<div>
+  <p>Item: Laptop</p>
+  <button id="add_laptop">Add to Cart</button>
+</div>
+<div>
+  <p>Item: Headphones</p>
+  <button id="add_headphones">Add to Cart</button>
+</div>
+
+<h3>User Details</h3>
+
+<label for="full_name">Full Name</label>
+<input type="text" id="full_name">
+<div id="error_name" class="error-msg"></div>
+
+<label for="email">Email</label>
+<input type="text" id="email">
+<div id="error_email" class="error-msg"></div>
+
+<label for="address">Address</label>
+<input type="text" id="address">
+<div id="error_address" class="error-msg"></div>
+
+<hr>
+
+<h3>Apply Coupon</h3>
+<input type="text" id="coupon_code" placeholder="Enter coupon">
+<button id="apply_coupon">Apply Coupon</button>
+<div id="coupon_msg" class="error-msg"></div>
+
+<hr>
+
+<h3>Order Summary</h3>
+<p>Subtotal: $<span id="subtotal_amount">1200</span></p>
+<p>Discount: $<span id="discount_amount">0</span></p>
+<p>Total: $<span id="order_total">1200</span></p>
+
+<hr>
+
+<h3>Shipping Method</h3>
+<input type="radio" id="standard" name="ship" value="standard"> Standard Shipping<br>
+<input type="radio" id="express" name="ship" value="express"> Express Shipping<br>
+
+<hr>
+
+<h3>Payment Method</h3>
+<input type="radio" id="credit" name="pay" value="credit"> Credit Card<br>
+<input type="radio" id="paypal" name="pay" value="paypal"> PayPal<br>
+
+<br>
+<button id="pay_now">Pay Now</button>
+<div id="payment_success"></div>
+
+</body>
+</html>

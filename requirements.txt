@@ -1,0 +1,16 @@
+fastapi
+uvicorn[standard]
+streamlit
+chromadb
+sentence-transformers
+numpy
+pymupdf            # for PDFs (pip name: pymupdf)
+beautifulsoup4
+python-multipart
+requests
+httpx
+uvicorn
+bs4
+lxml
+selenium
+python-dotenv
